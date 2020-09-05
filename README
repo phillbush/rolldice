@@ -1,0 +1,77 @@
+rolldice(6)                      Games Manual                      rolldice(6)
+
+NAME
+       rolldice - rolls virtual dice
+
+SYNOPSIS
+       rolldice [-s] [dice string...]
+
+DESCRIPTION
+       rolldice rolls virtual dice.  The dice strings passed on the command
+       line contain information on the dice to roll in a format comparable to
+       the format used in most role playing games.
+
+       If no dice string is provided as command line arguments, rolldice uses
+       stdin as input and runs interactivelly.
+
+       The options are as follows:
+
+       -s     Print out the result of each individual die separately, as well
+              as the operations and totals.
+
+   Dice string format
+       The dice string uses the exact format outlined below.  Optional parts
+       are between square brackets.  A # must be replaced by a number.
+
+              [#x][#]d[#|%][*#][+#|-#][s#]
+
+       [#x]   How many times to roll.  If omitted, defaults to 1 roll.
+
+       [#]d[#|%]
+              Main part of the dice string.  The first number is the number of
+              dice to roll in each roll, if omitted, roll just one die.  The
+              second number is the number of sides the dice have, if omitted,
+              roll 6-sided die.  The second number can be replaced by a
+              percent sign, implying a 100-sided die.  The numbers rolled on
+              each die are then added up and given as the result.
+
+       [*#]   How many times to multiply the result of each roll.  If omitted,
+              defaults to 1.
+
+       [+#|-#]
+              Number to be added or subtracted, depending on the sign, from
+              each roll.  If omitted, defaults to 0.  This step is handled
+              after the multiplication.
+
+       [s#]   How many lowest dice rolls to drop.  If omitted, defaults to 0.
+              This step is handled before the multiplication.
+
+EXIT STATUS
+       0      Success.
+
+       >0     Error occurred.
+
+EXAMPLES
+       Roll three six-sided dice and sum the results:
+
+              rolldice 3d
+
+       Roll four eight-sided dice and sum the results, them multiply the
+       result by 2 and add 2 to it:
+
+              rolldice 4d8*2+2
+
+       Roll four six-sided dice, drop the lowest result and add the remaining
+       results. Do this three times:
+
+              rolldice 3x4d6s1
+
+HISTORY
+       This version of rolldice was written as an exercise for practicing C.
+
+       This version of rolldice was inspired (but not based) on the rolldice
+       implementation by Stevie Strickland, but the code was written from
+       scrach.  This manual, however, was based on the manual of Stevie's
+       implementation.
+
+                                                                   rolldice(6)
